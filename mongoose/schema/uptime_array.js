@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const status_array = new mongoose.Schema({
   status: Boolean,
   ping: Number,
-  unix: String
+  unix: String,
+  ownedby: String,
+  monitor: String
 })
 const uptime_array = new mongoose.Schema(
       [

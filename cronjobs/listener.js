@@ -34,15 +34,14 @@ async function monitorService() {
                })
 
                if (dayjs(validUntil).diff(dayjs(), 'day') <= 5) {
-                  User.forEach((elem) => {
-                     User.updateOne(
-                        { name: elem.username },
+                  
+                     User.findOneAndUpdate(
+                        { name: md.ownedby },
                         { $push: { inbox: { type: "warn", discription: `${element.names}'s certificate expires in 5 days` } } }
                      );
-                  })
                   // create transporter object with smtp server details
                   const hconfigs = require('../mongoose/schema/hostconfigurations.js')
-
+/*
                   if (mdd.cert_check == true) {
                      const transporter = nodemailer.createTransport({
                         host: hconfigs[0].smtp_host,
@@ -52,14 +51,7 @@ async function monitorService() {
                            pass: hconfigs[0].smtp_pasw
                         }
                      });
-                     User.forEach((elem) => {
-                        transporter.sendMail({
-                           from: `notifier@${process.env.FQDN.toString().replace("https://", "").replace("http://", "")}`,
-                           to: elem.email,
-                           subject: `${element.name}'s, domain is going to expire in 5 days`,
-                        })
-                     });
-                  }
+                  }*/
                }
             }
 

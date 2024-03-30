@@ -5,6 +5,7 @@ const hostconfigs = new mongoose.Schema(
         {
           name: String,
           license: String,
+          activated: Boolean,
           setuped: Boolean,
           smtp: Boolean,
           smtp_host: String,

@@ -5,35 +5,86 @@
   <%- include('../templates/header.ejs') %>
 </head>
 
-<body class="dark:bg-zinc-900">
-  <%- include('../templates/nav.ejs') %>
-    <div class="flex justify-center pt-5">
-      <div class="bg-gray-200/75 dark:bg-zinc-800  shadow-md p-4 rounded-md">
-        <h1 class="text-2xl dark:text-white font-Montserrat mb-3">Setup!</h1>
-        <div class="gap-x-2">
-          <label for="input-label" class="block text-sm font-medium mb-1 dark:text-white">Admin Username</label>
-          <input type="email" id="adminname"
-            class="py-3 px-4 mb-2 block w-full bg-gray-200/80  rounded-md text-sm  dark:bg-zinc-700/25  dark:text-white"
-            placeholder="Peter Griffan">
-          <label for="input-label" class="block text-sm font-medium mb-1 dark:text-white">Admin Password</label>
-          <input type="ap" id="ap"
-            class="py-3 px-4 block w-full bg-gray-200/80 border-gray-200/50 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-zinc-700/25   dark:text-white"
-            placeholder="FNBD">
-          <div class="flex justify-between items-center gap-x-5">
-            <h1 class="text-xl dark:text-white font-Montserrat mb-3 mt-3">Have a license?</h1>
-            <a class="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500"
-              href="https://ambrosia.fnbd-team.eu.org/license">Get a license</a>
-          </div>
-          <input type="password" id="license"
-            class="py-3 px-4 block w-full bg-gray-200/80 border-gray-200/50 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-zinc-700/25  dark:border-gray-700 dark:text-white"
-            placeholder="A License">
+<body class="bg-ctp-base">
+  <main class="bg-ctp-base w-full max-w-md mx-auto p-6">
+    <div class="mt-7  border border-ctp-mantle rounded-xl shadow-sm bg-ctp-surface0">
+      <div class="p-4 sm:p-7">
+        <div class="text-left">
+          <h1 class="block text-2xl font-bold text-ctp-pink font-calsans">Setup Ambrosia</h1>
         </div>
-        <button type="button" onclick="sendreq()"
-          class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md mt-2 bg-purple-300 border border-transparent font-semibold dark:text-white  hover:bg-purple-400 focus:outline-none focus:ring-2 ring-offset-white focus:ring-purple-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
-          Install!
-        </button>
+
+        <div class="mt-5">
+
+
+          <div class="grid gap-y-4">
+            <!-- Form Group -->
+            <div>
+              <label for="name" class="block text-sm mb-2 font-calsans text-white">Admin Username</label>
+              <div class="relative">
+                <input type="name" id="name" name="name"
+                  class="py-3 px-4 block w-full 0 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none bg-ctp-surface1 hover:bg-ctp-surface1/50 focus:outline focus:outline-ctp-pink focus:trasition-all focus:outline:duration-150 text-white"
+                  required aria-describedby="usr-error">
+                <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                  <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"
+                    aria-hidden="true">
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                  </svg>
+                </div>
+              </div>
+              <p class="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email address so we
+                can get back to you</p>
+            </div>
+            <!-- End Form Group -->
+
+            <!-- Form Group -->
+            <div>
+              <label for="password" class="block text-sm mb-2 font-calsans text-white">Password</label>
+              <div class="relative">
+                <input type="password" id="ap" name="password"
+                  class="py-3 px-4 block w-full 0 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none bg-ctp-surface1 hover:bg-ctp-surface1/50 focus:outline focus:outline-ctp-pink focus:trasition-all focus:outline:duration-150 text-white"
+                  required aria-describedby="password-error">
+                <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                  <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"
+                    aria-hidden="true">
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <!-- End Form Group -->
+            <div
+              class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600">
+              Enterprise</div>
+            <!-- Form Group -->
+            <div>
+              <label for="license" class="block text-sm mb-2 font-calsans text-white">Ambrosia License Key</label>
+              <div class="relative">
+                <input type="license" id="license" name="license" placeholder="BIS1AB-CD23-EF45="
+                  class="py-3 px-4 block w-full 0 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none bg-ctp-surface1 hover:bg-ctp-surface1/50 focus:outline focus:outline-ctp-pink focus:trasition-all focus:outline:duration-150 text-white"
+                  required aria-describedby="confirm-password-error">
+                <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                  <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"
+                    aria-hidden="true">
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <!-- End Form Group -->
+
+
+            <button type="submit" onclick="sendreq()"
+              class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-ctp-pink/5 text-zinc-900 bg-ctp-pink/75 hover:bg-ctp-pink/60 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1">Sign
+              up</button>
+          </div>
+          <!-- End Form -->
+        </div>
       </div>
     </div>
+  </main>
 </body>
 <script>
   const HSThemeAppearance = {
@@ -131,52 +182,43 @@
   })
 
   function sendreq() {
-    const adminName = document.getElementById('adminname')
+    const adminName = document.getElementById('name')
     const adminPass = document.getElementById('ap');
     const license = document.getElementById('license');
     if (!adminName.value) {
-      document.getElementById('adminname').classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500', 'border');
-      Toast.fire({
-        icon: 'error',
-        title: 'error',
-        discription: 'Sent request to API!'
-      })
-    }
-    if (adminName.value) {
-      document.getElementById('adminname').classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500', 'border');
+
+    } else {
+      if (!adminPass.value) {
+      } else {
+        let licensekey;
+
+        if (license.value) {
+          licensekey = license.value;
+        } else {
+          licensekey = "no_key";
+        }
+        axios.post('/api/smartwiz/setup', { name: adminName.value, password: document.getElementById('ap').value, licensekey: licensekey })
+            .then(response => {
+              Toast.fire({
+                icon: 'success',
+                title: 'Success!',
+                description: 'Request sent to the API!'
+              });
+            })
+            .catch(error => {
+              Toast.fire({
+                icon: 'error',
+                title: 'Error',
+                description: 'Failed to send the request to the API!'
+              });
+              console.error('API request error:', error);
+            });
+
+      }
     }
 
-    if (!adminPass.value) {
-      document.getElementById('ap').classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500', 'border');
-      Toast.fire({
-        icon: 'error',
-        title: 'error',
-        discription: 'Sent request to API!'
-      })
-    }
-    if (adminPass.value) {
-      document.getElementById('ap').classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500', 'border');
-    }
-
-    if (adminPass.value && adminName.value) {
-      axios.post('/api/smartwiz/setup', { name: adminName.value, password: document.getElementById('ap').value })
-        .then(response => {
-          Toast.fire({
-            icon: 'success',
-            title: 'Success!',
-            description: 'Request sent to the API!'
-          });
-        })
-        .catch(error => {
-          Toast.fire({
-            icon: 'error',
-            title: 'Error',
-            description: 'Failed to send the request to the API!'
-          });
-          console.error('API request error:', error);
-        });
-    }
   }
+
 
 
 </script>

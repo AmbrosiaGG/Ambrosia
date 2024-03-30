@@ -1,5 +1,7 @@
 FROM oven/bun:latest
-WORKDIR /opt/Ambrosia
-COPY . .
-CMD ["bun", "install", "&&", "bun", "."]
-EXPOSE 3295
+WORKDIR /bin/Ambrosia
+COPY . /bin/Ambrosia
+RUN ["bun", "install"]
+CMD ["bunx", "pm2", "start", '--name "Ambrosia"', ""]
+EXPOSE 3341
+

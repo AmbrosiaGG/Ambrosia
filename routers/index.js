@@ -6,123 +6,134 @@ const router = express.Router();
 const hostsettings = require("../mongoose/schema/hostconfiguration");
 const monitors = require('../mongoose/schema/uptime_array')
 
-router.get("/", async (req, res) => {
-  
+router.get('/', async (req, res) => {
   const hostconfigs = await hostsettings.find()
   if (hostconfigs.length == []) {
     res.render("../SmartWiz/index.ejs", {});
+  } else {
+    res.render("../views/landing.ejs", {
+      req,
+      res
+    })
+  }
+})
+
+router.get("/dashboard", async (req, res) => {
+  const hostconfigs = await hostsettings.find()
+  if (hostconfigs.length == []) {
+    res.render("../SmartWiz/index.ejs", {});
+  } else {
+    if (!req.session.not_listd) {
+      res.redirect('/login')
     } else {
-      if (!req.session.not_listd) {
-        res.redirect('/login')
-      } else {
-        const monitor = await monitors.find()
+      const monitor = await monitors.find()
       let mongodbusr = await user.findOne({ name: req.session.username });
-        if (req.session.not_listd != mongodbusr) {
-          res.render("../views/index.ejs", {
-            users: mongodbusr,
-            fqdn: process.env.fqdn, 
-            monitor: monitor,
-            req, 
-            res
-          });
-          console.log(mongodbusr)
-        } else {
-          res.redirect('/login')
-        }
+      if (req.session.not_listd != mongodbusr) {
+        res.render("../views/index.ejs", {
+          users: mongodbusr,
+          fqdn: process.env.fqdn,
+          monitor: monitor,
+          req,
+          res
+        });
+        console.log(mongodbusr)
+      } else {
+        res.redirect('/login')
       }
     }
+  }
 });
 
-router.get("/users", async (req, res) => {
+router.get("/dashboard/users", async (req, res) => {
   const hostconfigs = await hostsettings.find()
   const users = await user.find()
 
   if (hostconfigs.length == []) {
     res.render("../SmartWiz/index.ejs", {});
-    } else {
-      const mongodbusr = await user.findOne({ name: req.session.username });
-      if (!req.session.not_listd) {
-        res.redirect('/login')
-      } else {
-        if (req.session.not_listd != mongodbusr) {
-          res.render("../views/users.ejs", {
-           user: users,
-           fqdn: process.env.fqdn,
-           userda: mongodbusr,
-           users: mongodbusr,
-           req, 
-           res
-          });
-        } else {
-          res.redirect('/login')
-        }
-      }
-    }
-});
-
-
-router.get("/monitors", async (req, res) => {
-  const hostconfigs = await hostsettings.find()
-    if (hostconfigs.length == []) {
-    res.render("../SmartWiz/index.ejs", {});
-    } else {
-      const mongodbusr = await user.findOne({ name: req.session.username });
-      const monitor = await monitors.find()
-
-      if (!req.session.not_listd) {
-        res.redirect('/login')
-      } else {
-        if (req.session.not_listd != mongodbusr) {
-          res.render("../views/monitors.ejs", {
-           fqdn: process.env.fqdn,
-           userda: mongodbusr,
-           users: mongodbusr,
-           monitor: monitor,
-           req, 
-           res
-          });
-        } else {
-          res.redirect('/login')
-        }
-      }
-    }
-});
-router.get("/login", async (req, res) => {
-  const hostconfigs = await hostsettings.find();
-  if (hostconfigs.length == []) {
-    res.render("../SmartWiz/index.ejs", {});
   } else {
-    res.render("../views/login.ejs", {  });
+    const mongodbusr = await user.findOne({ name: req.session.username });
+    if (!req.session.not_listd) {
+      res.redirect('/login')
+    } else {
+      if (req.session.not_listd != mongodbusr) {
+        res.render("../views/users.ejs", {
+          user: users,
+          fqdn: process.env.fqdn,
+          userda: mongodbusr,
+          users: mongodbusr,
+          req,
+          res
+        });
+      } else {
+        res.redirect('/login')
+      }
+    }
   }
 });
 
 
-router.get("/host", async (req, res) => {
+router.get("/dashboard/monitors", async (req, res) => {
+  const hostconfigs = await hostsettings.find()
+  if (hostconfigs.length == []) {
+    res.render("../SmartWiz/index.ejs", {});
+  } else {
+    const mongodbusr = await user.findOne({ name: req.session.username });
+    const monitor = await monitors.find()
+
+    if (!req.session.not_listd) {
+      res.redirect('/login')
+    } else {
+      if (req.session.not_listd != mongodbusr) {
+        res.render("../views/monitors.ejs", {
+          fqdn: process.env.fqdn,
+          userda: mongodbusr,
+          users: mongodbusr,
+          monitor: monitor,
+          req,
+          res
+        });
+      } else {
+        res.redirect('/login')
+      }
+    }
+  }
+});
+router.get("/dashboard/login", async (req, res) => {
+  const hostconfigs = await hostsettings.find();
+  if (hostconfigs.length == []) {
+    res.render("../SmartWiz/index.ejs", {});
+  } else {
+    res.render("../views/login.ejs", {});
+  }
+});
+
+
+router.get("/dashboard/host", async (req, res) => {
   const hostconfigs = await hostsettings.find()
   const users = await user.find()
 
   if (hostconfigs.length == []) {
     res.render("../SmartWiz/index.ejs", {});
+  } else {
+    const mongodbusr = await user.findOne({ name: req.session.username });
+    if (!req.session.not_listd) {
+      res.redirect('/login')
     } else {
-      const mongodbusr = await user.findOne({ name: req.session.username });
-      if (!req.session.not_listd) {
-        res.redirect('/login')
+      if (req.session.not_listd != mongodbusr) {
+        res.render("../views/hostconfigurations.ejs", {
+          user: users,
+          fqdn: process.env.fqdn,
+          userda: mongodbusr,
+          users: mongodbusr,
+          req,
+          res,
+          os: require('os')
+        });
       } else {
-        if (req.session.not_listd != mongodbusr) {
-          res.render("../views/hostconfigurations.ejs", {
-           user: users,
-           fqdn: process.env.fqdn,
-           userda: mongodbusr,
-           users: mongodbusr,
-           req, 
-           res,
-           os: require('os')
-          });
-        } else {
-          res.redirect('/login')
-        }
+        res.redirect('/login')
       }
     }
+  }
 });
 
 
@@ -132,25 +143,25 @@ router.get("/user/edit/:name", async (req, res) => {
 
   if (hostconfigs.length == []) {
     res.render("../SmartWiz/index.ejs", {});
+  } else {
+    const mongodbusr = await user.findOne({ name: req.session.username });
+    if (!req.session.not_listd) {
+      res.redirect('/login')
     } else {
-      const mongodbusr = await user.findOne({ name: req.session.username });
-      if (!req.session.not_listd) {
-        res.redirect('/login')
+      if (req.session.not_listd != mongodbusr) {
+        res.render("../views/users_edit.ejs", {
+          user: users,
+          fqdn: process.env.fqdn,
+          userda: mongodbusr,
+          users: mongodbusr,
+          req,
+          res
+        });
       } else {
-        if (req.session.not_listd != mongodbusr) {
-          res.render("../views/users_edit.ejs", {
-           user: users,
-           fqdn: process.env.fqdn,
-           userda: mongodbusr,
-           users: mongodbusr,
-           req, 
-           res
-          });
-        } else {
-          res.redirect('/login')
-        }
+        res.redirect('/login')
       }
     }
+  }
 });
 
 module.exports = router;

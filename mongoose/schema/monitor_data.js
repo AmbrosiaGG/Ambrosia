@@ -13,7 +13,8 @@ const monitordata = new mongoose.Schema(
           currentStatus: Boolean,
           cert_check: Boolean,
           cert_expires: String,
-          intrvl: String
+          intrvl: String,
+          ownedby: String
         },
       ]
 );

@@ -5,15 +5,23 @@ const inbx = new mongoose.Schema({
   closed: Boolean,
   cid: String
 });
+const subdomain = new mongoose.Schema({
+  domain: String,
+  custom: Boolean,
+});
 const user = new mongoose.Schema(
       [
         {
           name: String,
           role: String, // Admin/User
+          org: String,
           password: String,
           avatar: String,
           inbox: [inbx],
-          email: String
+          subdomains: [subdomain],
+          email: String,
+          bearerToken: String,
+          plan: String
         },
       ]
 );

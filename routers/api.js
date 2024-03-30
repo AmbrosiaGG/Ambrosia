@@ -4,6 +4,8 @@ const fs = require("fs");
 const passwordgen = require("../utilities/password_gen");
 const Jimp = require("jimp");
 const os = require('os')
+const axios = require('axios')
+const { uniqueNamesGenerator, adjectives, colors, animals } = require('unique-names-generator');
 //import chalk from "chalk";
 
 /* Schemas */
@@ -12,54 +14,156 @@ const UptimeArray = require("../mongoose/schema/uptime_array");
 const User = require("../mongoose/schema/user");
 const hostsettings = require("../mongoose/schema/hostconfiguration");
 const db = require("../utilities/quickmongo.js");
+/*
+// Deprecate the Cloudflare package, Use Ambrosia-CF
+import Cloudflare from 'cloudflare'; 
+const cloudflare = new Cloudflare({
+  apiEmail: process.env.cloudflare_email, // This is the default and can be omitted
+  apiKey: process.env.cloudflare_key, // This is the default and can be omitted
+});
+*/
+const ambrosiacf = require('../sister_packages/AmbrosiaCF/index')
+const cf = new ambrosiacf({ apikey: process.env.cloudflare_key })
+
+
 
 const router = express.Router();
 
+/*
+router.post('/token', async (req, res) => {
+    if (!req.body.username) {
+      res.json({ title: "Error", description: "No Data To Check Against DTCA", icon: "error" })
+    } else {
+      const userdata = await User.findOne(req.body.username) 
+      if (!await userdata) {
+        res.json({ title: "Error", description: "No user found", icon: "error" })
+      } else {
+        if (userdata.password != req.body.password) {
+          res.json({ title: "Error", description: "Incorrect Data", icon: "error" })
+        } else {
+          
+        }
+    }
+  }
+})
+*/
+
+router.post('/domains/new_subdomain', async (req, res) => {
+  if (req.session) {
+    let usersd = await User.findOne(req.session.username)
+    if (!await usersd) {
+      if (await usersd.password == req.session.not_listd) {
+        if (usersd.plan == "Free" || usersd.plan == "Pro" || usersd.plan == "Business" || usersd.plan == "Enterprise" || usersd) {
+          const config = {
+            dictionaries: [adjectives, colors, animals],
+            separator: ''
+          };
+          const domain = `${uniqueNamesGenerator(config)}.${process.env.subdomain_system_domain}`
+          cf.dnsRecordAdd(process.env.subdomain_system_cf_zoneid, "novabot.eu.org", domain, true, "CNAME", 3360)
+          res.status(200).json({
+            message: "Success! Successfully created the subdoman! Domain is: " + domain,
+            title: "Success",
+            icon: "success",
+          });
+          const subdomains = await User.findOneAndUpdate({ name: req.session.username }, {
+            subdomains: {
+              domain: domain,
+              custom: false,
+            }
+          }, {
+            returnOriginal: false
+          });
+        }
+      } else {
+        res.json({ icon: "error", message: "Error USR CREDENTIALS", title: "Error" })
+      }
+    } else {
+      res.json({ icon: "error", message: "Error USR NOT FOUND 404", title: "Error" })
+    }
+  } else {
+    res.json({ icon: "error", message: "No Session", title: "Error" })
+  }
+})
+
+/*
 router.post("/monitor/:name/info", async (req, res) => {
   let data = require("../mongoose/schema/uptime_array.js")
   res.json(data)
 });
+*/
+
 
 
 router.post("/monitor/:name/history", async (req, res) => {
-  return await UptimeArray.findOne({ name: req.params.name }).data
+  if (req.session) {
+    let usersd = await User.findOne(req.session.username)
+    if (!await usersd) {
+      if (await usersd.password == req.session.not_listd) {
+        const md = require('../mongoose/schema/monitor_data')
+        const ua = await UptimeArray.findOne({ name: req.params.name })
+        if (await md.ownedby != req.session.username) {
+          res.status(403).json({ error: 'No Access To Resource' })
+        } else {
+          return await ua.data
+        }
+      } else {
+        res.status(401).json({ icon: "error", message: "Error USR CREDENTIALS", title: "Error" })
+      }
+    } else {
+      res.status(401).json({ icon: "error", message: "Error USR NOT FOUND 404", title: "Error" })
+    }
+  } else {
+    res.status(401)({ icon: "error", message: "No Session", title: "Error" })
+  }
 });
 
 
 router.post("/admin/monitor/add", async (req, res) => {
-  const userdata = User.findOne({ name: req.session.username })
-  const ua = new UptimeArray({
-    name: req.body.name,
-    status: [],
-  });
-  const md = new monitordat({
-    name: req.body.name,
-    monitorurl: req.body.monurl,
-    type: req.body.type, // HTTP, TCP, UDP
-    tsc: dayjs().format("MMMM D, YYYY h:mm A"), // Time Since Creation,
-    uptime: 0, // HOW THE FUCK DO I CALCULATE THAT... Wait i am just stupid
-    downtime: 0, // 0 Cause no data? https://a.pinatafarm.com/320x349/4889604c7b/megamind-no-b.jpg
-    tls: req.body.tlscb,
-    intrvl: req.body.int
-  });
-  ua.save();
-  md.save();
-  await userdata.updateOne(
-    { name: req.session.username },
-    { $push: { inbox: { type: "success", discription: "Created monitor!", closed: false, cid: passwordgen(6) } } }
-  );
-  res.json({
-    message: "Success! Successfully created the monitor",
-    title: "Success",
-    icon: "success",
-  });
+  if (req.session) {
+    let usersd = await User.findOne(req.session.username)
+    if (!await usersd) {
+      if (await usersd.password == req.session.not_listd) {
+        //
+        const userdata = User.findOne({ name: req.session.username })
+        const ua = new UptimeArray({
+          name: req.body.name,
+          status: [],
+          ownedby: req.session.username,
+        });
+        const md = new monitordat({
+          name: req.body.name,
+          monitorurl: req.body.monurl,
+          type: req.body.type, // HTTP, TCP, UDP
+          tsc: dayjs().format("MMMM D, YYYY h:mm A"), // Time Since Creation,
+          uptime: 0, // HOW THE FUCK DO I CALCULATE THAT... Wait i am just stupid
+          downtime: 0, // 0 Cause no data? https://a.pinatafarm.com/320x349/4889604c7b/megamind-no-b.jpg
+          tls: req.body.tlscb,
+          intrvl: req.body.int
+        });
+        ua.save();
+        md.save();
+        await userdata.updateOne(
+          { name: req.session.username },
+          { $push: { inbox: { type: "success", discription: "Created monitor!", closed: false, cid: passwordgen(6) } } }
+        );
+        res.status(200).json({
+          message: "Success! Successfully created the monitor",
+          title: "Success",
+          icon: "success",
+        });
+        //
+      } else {
+        res.status(401).json({ icon: "error", message: "Error USR CREDENTIALS", title: "Error" })
+      }
+    } else {
+      res.status(401).json({ icon: "error", message: "Error USR NOT FOUND 404", title: "Error" })
+    }
+  } else {
+    res.status(401)({ icon: "error", message: "No Session", title: "Error" })
+  }
 });
 
-router.post("/:name/history", async (req, res) => {
-  UptimeArray.find({ name: req.params.name }, (err, monitorData) => {
-    res.json(monitorData);
-  });
-});
+
 router.post("/admin/user/add", async (req, res) => {
   try {
     if (req.session.username && req.session.role) {
@@ -189,25 +293,57 @@ router.post("/smartwiz/setup", async (req, res) => {
     avatar: `${process.env.FQDN}/assets/default_pfp.jpeg`,
     inbox: [{ type: "success", description: "s!", closed: false, cid: passwordgen(6) }],
   });
-  const hostconfis = new hostsettings({
-    name: "Ambrosia",
-    license: "Not Implemented",
-    setuped: true,
-  });
-
-
-  // Save user and hostconfig data
   newUser.save();
-  hostconfis.save();
+  if (req.body.licensekey) {
+    axios.post('http://localhost:3344/fetch', { license: req.body.licensekey }).then((response) => {
 
-  // Respond with a success message
+      if (response.data.msg.msg == "License Key Doesnt Exist!" || response.data.msg.msg == "License Key Used!") {
+        const hostconfis = new hostsettings({
+          name: "Ambrosia",
+          license: "license+error",
+          activated: false,
+          setuped: true,
+        });
+        hostconfis.save();
+      } else if (response.data.msg.msg == "License Key Usable!") {
+        const hostconfis = new hostsettings({
+          name: "Ambrosia",
+          license: req.body.licensekey,
+          activated: true,
+          setuped: true,
+        });
+        hostconfis.save();
+      }
+    })
+  } else if (req.body.licensekey == "no_key") {
+    const hostconfis = new hostsettings({
+      name: "Ambrosia",
+      license: "no_key",
+      setuped: true,
+    });
+    hostconfis.save();
+  } else {
+    const hostconfis = new hostsettings({
+      name: "Ambrosia",
+      license: "no_key",
+      setuped: true,
+    });
+    hostconfis.save();
+  }
   res.json({
     title: "Success!",
-    description: "Successfully created a new user",
+    description: "Success! Ambrosias Setup!",
     icon: "success",
   });
+})
 
-});
+
+
+// Save user and hostconfig data
+
+
+// Respond with a success message
+
 
 /* Shitty Code For Avatar */
 router.get("/user/avatar/:btoa", async (req, res) => {
@@ -269,7 +405,7 @@ router.post("/inbox/delete/", async (req, res) => {
   } else {
     const user = require('../mongoose/schema/user.js')
     const ud = await user.findOne({ name: req.session.username })
-    await ud.updateOne({ inbox: [{ cid: req.body.cid }] }, { closed: true })
+    await ud.deleteOne({ cid: req.body.cid })
     res.json({
       title: "Success?",
       description: "Wait what? I worked?",
@@ -278,9 +414,11 @@ router.post("/inbox/delete/", async (req, res) => {
   }
 })
 
+
+
 router.get('/download/agent/:Domain', () => {
   if (req.params.Domain) {
-    
+
   }
 })
 
