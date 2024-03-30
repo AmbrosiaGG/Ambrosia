@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../templates/header.ejs') %>
+</head>
+
+<body class="mocha bg-ctp-base">
+  <header
+    class="sticky top-0 inset-x-0 flex flex-wrap border-ctp-surface0/25 backdrop-blur-md border-b bg-ctp-surface0 opacity-70 overflow-hide sm:justify-start sm:flex-nowrap z-[48] w-full text-sm py-2.5 sm:py-4">
+    <nav class="flex basis-full justify-between  items-center w-full mx-auto px-2 sm:px-4 md:px-6"
+      aria-label="Ambrosia Nav">
+      <div class="gap-3">
+        <h1 class="h1 text-2xl font-calsans text-[#EEAAF4]">Ambrosia</h1>
+      </div>
+      <div class="gap-2 flex items-center ">
+        <a class="transition duration-200 text-[15px] font-srcode text-ctp-text cursor-pointer hover:-translate-y-2">
+          Home
+        </a>
+        <a class="transition duration-200 text-[15px] font-srcode  text-ctp-text cursor-pointer hover:-translate-y-2">
+          Status
+        </a>
+        <a
+          class="transition duration-200 text-[15px] font-srcode text-ctp-text hover:text-ctp-text/85 cursor-pointer hover:-translate-y-2">
+          Blog
+        </a>
+      </div>
+      <div class="gap-2 flex items-center ">
+        <a href="/dashboard/login"
+          class="py-3 px-5 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg hover:duration-300 hover:delay-300 transition-all border-transparent bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-600  disabled:opacity-50 disabled:pointer-events-none bg-ctp-surface1  dark:text-white ">
+          <p href="/dashboard/login" class="text-white">Login</p>
+        </a>
+      </div>
+    </nav>
+  </header>
+  <div class="p-6 mt-[7rem]">
+    <div class="flex justify-start ">
+      <h1 class="h1 text-5xl font-bold font-calsans text-white">
+        Manage, Monitor, Deploy
+        <br />
+        Deploy to Prod without
+        <br />
+        stress
+      </h1>
+    </div>
+    <div class="flex items-center gap-1 mt-2 ">
+      <a class="button font-IBM">Get Started?</a>
+      <a class="button-premium font-IBM flex gap-1 items-center">
+        <div class="w-max">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-gem">
+            <path d="M6 3h12l4 6-10 13L2 9Z" />
+            <path d="M11 3 8 9l4 13 4-13-3-6" />
+            <path d="M2 9h20" />
+          </svg>
+        </div>
+        Premium
+      </a>
+    </div>
+  </div>
+
+  <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto mt-[12rem]">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 items-center justify-center gap-2">
+      <a data-aos="fade-up" data-aos-delay="200"
+        class="group flex flex-col justify-center rounded-xl p-4 md:p-7 dark:focus:outline-none dark:focus:ring-1 bg-ctp-surface0/80 hover:bg-ctp-surface0/50"
+        href="#">
+        <div class="flex justify-center items-center w-12 h-12 bg-[#E8C3F5] text-white rounded-xl">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="#3f3f46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-database">
+            <ellipse cx="12" cy="5" rx="9" ry="3" />
+            <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+            <path d="M3 12A9 3 0 0 0 21 12" />
+          </svg>
+        </div>
+        <div class="mt-5">
+          <h3 class="group-hover:text-gray-200/70 text-lg font-semibold text-white font-calsans">
+            Easy Deploy
+          </h3>
+          <p class="mt-1 text-ctp-text group-hover:text-ctp-text/70">
+            Deploy Easily to Ambrosia.gg with Easy Deploy™
+          </p>
+          <span
+            class="mt-2 inline-flex items-center gap-x-1.5 text-sm text-[#EEAAF4] decoration-2 group-hover:underline font-medium">
+            Learn more
+            <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+              strokeLinejoin="round">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <a data-aos="fade-up" data-aos-delay="200"
+        class="group flex flex-col justify-center rounded-xl p-4 md:p-7 dark:focus:outline-none dark:focus:ring-1 bg-ctp-surface0/80 hover:bg-ctp-surface0/50"
+        href="#">
+        <div class="flex justify-center items-center w-12 h-12 bg-[#E8C3F5] text-white rounded-xl">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="#3f3f46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-paint-roller">
+            <rect width="16" height="6" x="2" y="2" rx="2" />
+            <path d="M10 16v-2a2 2 0 0 1 2-2h8a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
+            <rect width="4" height="6" x="8" y="16" rx="1" />
+          </svg>
+        </div>
+        <div class="mt-5">
+          <h3 class="group-hover:text-gray-200/70 text-lg font-semibold text-white font-calsans">
+            Customizable
+          </h3>
+          <p class="mt-1 text-ctp-text group-hover:text-ctp-text/70">
+            Deploy Easily to Ambrosia.gg with Easy Deploy™
+          </p>
+          <span
+            class="mt-2 inline-flex items-center gap-x-1.5 text-sm text-[#EEAAF4] decoration-2 group-hover:underline font-medium">
+            Learn more
+            <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+              strokeLinejoin="round">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <a data-aos="fade-up" data-aos-delay="200"
+        class="group flex flex-col justify-center rounded-xl p-4 md:p-7 dark:focus:outline-none dark:focus:ring-1 bg-ctp-surface0/80 hover:bg-ctp-surface0/50"
+        href="#">
+        <div class="flex justify-center items-center w-12 h-12 bg-[#E8C3F5] text-white rounded-xl">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="#3f3f46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-monitor">
+            <rect width="20" height="14" x="2" y="3" rx="2" />
+            <line x1="8" x2="16" y1="21" y2="21" />
+            <line x1="12" x2="12" y1="17" y2="21" />
+          </svg>
+        </div>
+        <div class="mt-5">
+          <h3 class="group-hover:text-gray-200/70 text-lg font-semibold text-white font-calsans">
+            Monitor
+          </h3>
+          <p class="mt-1 text-ctp-text group-hover:text-ctp-text/70">
+            Deploy Easily to Ambrosia.gg with Easy Deploy™
+          </p>
+          <span
+            class="mt-2 inline-flex items-center gap-x-1.5 text-sm text-[#EEAAF4] decoration-2 group-hover:underline font-medium">
+            Learn more
+            <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+              strokeLinejoin="round">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <a data-aos="fade-up" data-aos-delay="200"
+        class="group flex flex-col justify-center rounded-xl p-4 md:p-7 dark:focus:outline-none dark:focus:ring-1 bg-ctp-surface0/80 hover:bg-ctp-surface0/50"
+        href="#">
+        <div class="flex justify-center items-center w-12 h-12 bg-[#E8C3F5] text-white rounded-xl">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="#3f3f46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-database-zap">
+            <ellipse cx="12" cy="5" rx="9" ry="3" />
+            <path d="M3 5V19A9 3 0 0 0 15 21.84" />
+            <path d="M21 5V8" />
+            <path d="M21 12L18 17H22L19 22" />
+            <path d="M3 12A9 3 0 0 0 14.59 14.87" />
+          </svg>
+        </div>
+        <div class="mt-5">
+          <h3 class="group-hover:text-gray-200/70 text-lg font-semibold text-white font-calsans">
+            Reliability
+          </h3>
+          <p class="mt-1 text-ctp-text group-hover:text-ctp-text/70">
+            Deploy Easily to Ambrosia.gg with Easy Deploy™
+          </p>
+          <span
+            class="mt-2 inline-flex items-center gap-x-1.5 text-sm text-[#EEAAF4] decoration-2 group-hover:underline font-medium">
+            Learn more
+            <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+              strokeLinejoin="round">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </span>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <div class="mt-20 grid gap-6 grid-cols-2 sm:gap-12 lg:grid-cols-4 lg:gap-8 ">
+      <div data-aos="fade-up" data-aos-delay="1100">
+        <h4 class="text-lg sm:text-xl font-semibold  text-ctp-text">
+          Uptime
+        </h4>
+        <p class="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-[#EEAAF4]">
+          99.95%
+        </p>
+        <p class="mt-1 text-gray-500">Days the server has been UP!</p>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="1300">
+        <h4 class="text-lg sm:text-xl font-semibold text-ctp-text">
+          Users
+        </h4>
+        <p class="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-[#EEAAF4]">
+          30k+
+        </p>
+        <p class="mt-1 text-gray-500">use Ambrosia each day</p>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="1600">
+        <h4 class="text-lg sm:text-xl font-semibold text-ctp-text">
+          Response times
+        </h4>
+        <p class="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-[#EEAAF4]">
+          ≈100ms
+        </p>
+        <p class="mt-1 text-gray-500">Average response times</p>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="1800">
+        <h4 class="text-lg sm:text-xl font-semibold text-ctp-text">
+          Sites Hosted
+        </h4>
+        <p class="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-[#EEAAF4]">
+          33k+
+        </p>
+        <p class="mt-1 text-gray-500">in total</p>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-5xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14" data-aos="fade-up" data-aos-delay="1700">
+      <h2 class="text-2xl font-bold md:text-4xl md:leading-tight text-ctp-text">
+        Our team
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-12">
+      <div class="text-center" data-aos="fade-up" data-aos-delay="1900">
+        <img class="rounded-full w-24 h-24 mx-auto"
+          src="https://cdn.discordapp.com/avatars/845312519001342052/ad209fd629974989e27ce2ac4f51a97f.png?w=64&q=75"
+          alt="I_M_Duckey" />
+        <div class="mt-2 sm:mt-4">
+          <h3 class="font-medium text-ctp-text">
+            Duckey Dev
+          </h3>
+          <p class="text-sm text-gray-500 ">
+            "I Belive in Open Source."
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
