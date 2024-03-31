@@ -9,6 +9,10 @@ const subdomain = new mongoose.Schema({
   domain: String,
   custom: Boolean,
 });
+const serversarray = new mongoose.Schema({
+  id: String,
+  setupd: Boolean
+});
 const user = new mongoose.Schema(
       [
         {
@@ -19,6 +23,7 @@ const user = new mongoose.Schema(
           avatar: String,
           inbox: [inbx],
           subdomains: [subdomain],
+          servers: [serversarray],
           email: String,
           bearerToken: String,
           plan: String
