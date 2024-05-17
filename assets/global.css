@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/cal-sans@1.0.1/index.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply transition-colors duration-150;
+}
+
+        /* Custom glow effect */
+        .glow {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glow:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(255, 255, 255, 0.1); /* Adjust glow color and opacity here */
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            transform: translate(-50%, -50%);
+        }
+
+        .glow:hover:before {
+            opacity: 1;
+        }
+
+        .gradient-blur {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gradient-blur:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2)); /* Adjust gradient colors and opacity here */
+            filter: blur(10px); /* Adjust blur radius */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .gradient-blur:hover:before {
+            opacity: 1;
+        }
+
+              /* Custom circular background with blur */
+              .circular-background {
+                position: relative;
+                overflow: hidden;
+            }
+    
+            .circular-background:before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background-color: rgba(255, 255, 255, 0.5); /* Adjust background color and opacity */
+                border-radius: 50%;
+                filter: blur(10px); /* Adjust blur radius */
+                z-index: -1;
+                transition: opacity 0.3s ease-in-out;
+                opacity: 0;
+            }
+    
+            .circular-background:hover:before {
+                opacity: 1;
+            }
+    
+            /* Custom card styling */
+            .card {
+                backdrop-filter: blur(10px); /* Adjust blur radius for the card */
+                transition: backdrop-filter 0.3s ease-in-out;
+            }
+    
+            /* Adjust card content styling as needed */
+            .card-content {
+                padding: 1.5rem;
+            }

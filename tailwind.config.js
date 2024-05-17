@@ -4,24 +4,42 @@
  * * Procead with caution!!!
 **/
 
+const plugin = require('tailwindcss/plugin');
+
 /** @type {import('tailwindcss').Config} */
 export default {
-  /*
-   * Aha i fixed the sidebar problem! It was that i forgot "./templates/*" in the contents thing below 
-  */
-  content: ["./views/**/*", "./views/*", "./templates/*", "./SmartWiz/*", "./assets/**/*", "node_modules/preline/dist/*.js"], // Withou't this shit will break
+  content: ["./views/**/*", "./views/*", "./templates/*", "./assets/**/*"],
+  important: true,
+  // Active dark mode on class basis
   darkMode: 'class', // ! Dont touch this
+  i18n: {
+    locales: ["en-US"],
+    defaultLocale: "en-US",
+  },
+  purge: {
+    content: ["./views/**/*.ejs", "./views/**/*.ejs"],
+  },
+
   theme: {
     fontFamily: {
-     Montserrat: ["Montserrat", "sans-serif"], // TODO: ADD A BETTER FONT
-     calsans: ["Cal Sans"], // UwU Found it. Finnaly no shiz like Montserrat
-     srcode: ["Source Code Pro", "monospace"], // From the NEXTJS INFDEV
+     Montserrat: ["Montserrat", "sans-serif"],
+     calsans: ["Cal Sans"],
+     srcode: ["Source Code Pro", "monospace"],
      annon: ["Anonymous Pro", "monospace"],
      paytone: ["Paytone One", "sans-serif"],
      IBM: ["IBM Plex Mono", "monospace"]
     },
+    variants: {
+      extend: {
+        backgroundColor: ["checked"],
+        borderColor: ["checked"],
+        inset: ["checked"],
+        zIndex: ["hover", "active"],
+      },
+    },
+  
     extend: {},
-    keyframes: { // Copied from Dirty Cajun Rice
+    keyframes: {
       "scroll": {
         to: { transform: 'translate(calc(-50% - 0.5rem))'}
       }
@@ -31,7 +49,6 @@ export default {
     }
   },
   plugins: [
-    require('preline/plugin'), // * Only preline can save this project
     require("@catppuccin/tailwindcss")({
       // prefix to use, e.g. `text-pink` becomes `text-ctp-pink`.
       // default is `false`, which means no prefix
@@ -39,7 +56,26 @@ export default {
       // which flavour of colours to use by default, in the `:root`
       defaultFlavour: "mocha",
     }),
-    
+    plugin(function ({ addVariant, e, postcss }) {
+      addVariant('firefox', ({ container, separator }) => {
+      const isFirefoxRule = postcss.atRule({
+        name: '-moz-document',
+        params: 'url-prefix()',
+      });
+      isFirefoxRule.append(container.nodes);
+      container.append(isFirefoxRule);
+      isFirefoxRule.walkRules((rule) => {
+        rule.selector = `.${e(
+        `firefox${separator}${rule.selector.slice(1)}`
+        )}`;
+      });
+      });
+    }),
+  
   ],
+  future: {
+    purgeLayersByDefault: true,
+  },
+
 }
 
