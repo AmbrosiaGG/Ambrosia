@@ -8,7 +8,7 @@ const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./views/**/*", "./views/*", "./templates/*", "./assets/**/*"],
+  content: ["./views/**/*", "./views/*", "./templates/*", "./assets/**/*", 'node_modules/preline/dist/*.js',],
   important: true,
   // Active dark mode on class basis
   darkMode: 'class', // ! Dont touch this
@@ -27,7 +27,8 @@ export default {
      srcode: ["Source Code Pro", "monospace"],
      annon: ["Anonymous Pro", "monospace"],
      paytone: ["Paytone One", "sans-serif"],
-     IBM: ["IBM Plex Mono", "monospace"]
+     IBM: ["IBM Plex Mono", "monospace"],
+     BBHL: ["Baloo Bhai 2", "sans-serif"]
     },
     variants: {
       extend: {
@@ -49,6 +50,7 @@ export default {
     }
   },
   plugins: [
+    require('preline/plugin'),
     require("@catppuccin/tailwindcss")({
       // prefix to use, e.g. `text-pink` becomes `text-ctp-pink`.
       // default is `false`, which means no prefix

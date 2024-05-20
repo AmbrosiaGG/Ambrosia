@@ -32,8 +32,11 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')))
+
 app.use("/api", require('./routers/api'))
 app.use("", require('./routers/index')) // For / Route 
+app.use("/dashboard", require('./routers/dashboard')) // For / Route 
 app.use('/assets', express.static(path.join(__dirname, 'assets')))
 
 

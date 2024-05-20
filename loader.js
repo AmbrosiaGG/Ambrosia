@@ -48,3 +48,15 @@ console.log(
   chalk.blue("[Sentry] ") +
     chalk.green("Sentry has been initiated")
 );
+console.log(
+  chalk.blue("[EXPRESS] ") +
+    chalk.green("Route /* associated")
+);
+console.log(
+  chalk.blue("[EXPRESS] ") +
+    chalk.green("Route /dashboard/* associated")
+);
+console.log(
+  chalk.blue("[EXPRESS] ") +
+    chalk.green("Route /api/* associated")
+);
