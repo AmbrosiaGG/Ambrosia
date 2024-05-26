@@ -1,34 +1,32 @@
 {
-  "name": "web-base",
-  "module": "index.js",
-  "type": "module",
-  "devDependencies": {
-    "bun-types": "latest"
-  },
+  "name": "ambrosia",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "dev": "NODE_ENV=dev && bun run dev:css & bun .",
-    "dev:css": "tailwindcss -i \"./assets/global.css\" -o \"./assets/css/tailwind.css\" --watch "
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@catppuccin/tailwindcss": "^0.1.6",
-    "@sentry/bun": "^8.0.0",
-    "@sentry/cli": "^2.31.2",
-    "axios": "^1.6.8",
-    "body-parser": "^1.20.2",
-    "chalk": "^5.3.0",
-    "connect-mongo": "^5.1.0",
-    "dayjs": "^1.11.10",
-    "ejs": "^3.1.9",
-    "express": "^4.18.2",
-    "express-session": "^1.17.3",
-    "lodash": "^4.17.21",
-    "mathjs": "^11.11.2",
-    "mongoose": "^7.6.2",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.2.6",
+    "next": "14.2.3",
     "preline": "^2.1.0",
-    "tailwind": "^4.0.0",
-    "tailwindcss": "^3.3.3"
+    "react": "^18",
+    "react-dom": "^18",
+    "tailwind-merge": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5"
   }
 }
