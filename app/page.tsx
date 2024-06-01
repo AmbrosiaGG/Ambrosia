@@ -12,6 +12,7 @@ export default function Home() {
      <div className="relative z-10 backdrop-filter backdrop-blur-lg mb-[10rem]">
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
         <div className="max-w-2xl text-center mx-auto">
+          
           <div className="mt-5 max-w-2xl">
           <WordPullUp
       className="text-4xl font-calsans tracking-[-0.02em] text-ctp-text md:text-7xl md:leading-[5rem]"
